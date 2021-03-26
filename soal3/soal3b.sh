@@ -39,4 +39,6 @@ mv Koleksi_$i /home/struk/$(date +"%d-%m-%Y")/Koleksi_$i
 
 done
 
+mv Foto.log /home/struk/$(date +"%d-%m-%Y")/Foto.log
+ 
 
