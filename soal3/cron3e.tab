@@ -1,0 +1,2 @@
+0 7 * * 1-5 soal3d.sh
+0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
