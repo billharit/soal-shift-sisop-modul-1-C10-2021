@@ -36,7 +36,7 @@ END {print mid,"dengan presentase",max"%."}
 
 `BEGIN {max=0}` = Untuk mendeklarasikan variable max
 
-`$1 !~ /^R/` =
+`$1 !~ /^R/` = Mengambil isi pada kolom 1 yaitu Row ID, yang tidak memiliki Row ID dengan awalan R
 
 `{1[$1]=$21/($18-$21)*100` = Mengambil isi pada kolom 1 yang berupa Row ID, kemudian akan dihitung Percentage Profit setiap ID nya
 
@@ -57,7 +57,7 @@ awk -F '\t' '$2 ~ /^CA-2017/ {if($10 == "Alburquerque") print $7}
 
 `-F '\t'` = Memberitahu field seperatornya adalah tab
 
-`$2 ~ /^CA-2017/` =
+`$2 ~ /^CA-2017/` = Mengambil isi pada kolom 2 yaitu Order ID, yang memiliki Order ID dengan awalan CA-2017
 
 `{if($10 == "Alburquerque")`  = Mengambil isi pada kolom 10 berdasarkan city "Albuquerque"
 
@@ -83,7 +83,7 @@ END {for(x in i) print x,"dengan",i[x],"transaksi."}
 
 `BEGIN {i["Costumer"]=0; i["Corporate"]=0; i["Home Office"]=0}` = Untuk mendeklarasikan array i
 
-`$8 !~ /Segment/` = 
+`$8 !~ /Segment/` = Mengambil isi pada kolom 8 yaitu Segment, yang tidak bernama Segment
 
 `{i[$8]++}` = Menghitung banyak segmen
 
@@ -107,7 +107,7 @@ END {(for x in i) print x,"dengan total keuntungan",i[x]}
 
 `-F '\t'` = memberitahu field seperatornya adalah tab
 
-`$13 !~ /Region/` = 
+`$13 !~ /Region/` = Mengambil isi pada kolom 13 yaitu Region, yang tidak bernama Region
 
 `{i[$13]+=$21}` = Mengambil isi pada kolom 13 berupa Region, lalu dihitung jumlah profit per Regionnya
 
