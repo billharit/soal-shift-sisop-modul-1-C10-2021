@@ -272,3 +272,64 @@ Penjelasan
 ```
 * `0 20 1/7 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap tujuh hari lewat mulai dari tanggal 1
 * `0 20 2/4 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap empat hari lewat mulai dari tanggal 2 
+
+**3c. diminta untuk mengunduh gambar kelinci dan kucing secara zigzag (bebas mulai darimana) serta memisahkan folder gambar kelinci dan kucing**
+```
+#!/bin/bash
+
+mkdir ~/Kucing
+mkdir ~/Kelinci
+
+hari=$(date +"%--j")
+
+oddcheck=$(( $hari % 2 ))
+
+if [ $oddcheck -eq 0 ]
+then
+	wget https://loremflickr.com/320/240/kitten -O "Kucing-$hari" 
+	mv Kucing-$hari ~/Kucing
+elif [ $oddcheck -ne 0 ]
+then
+	wget https://loremflickr.com/320/240/bunny -O "Kelinci-$hari"
+	mv Kelinci-$hari ~/Kelinci
+fi
+```
+Penjelasan
+`mkdir ~/Kucing` Membuat direktori Kucing
+`mkdir ~/Kelinci` Membuat direktori Kelinci
+* `hari=$(date +"%--j")` kita membuat angka hari untuk penanda foto didownnload kapan digunakan %--j yang berarti tanggal dari 1 sampai 365, menggunakan -- agar tidak terdapat angka seperti 001,020 (angka yang depannya nol dihilangkan agar bisa masuk ke dalam algoritma berikutnya)
+* untuk membuat script mendownload secara zigzag kita menggunakan ganjil genap yang mengcompare hari dari tahun yang sudah kita dapat sebelumnya
+* file dinamakan Objek-$hari untuk menandakan tanggal didownload dan agar tidak terjadi overwrite
+
+**3d. soal meminta untuk memindahkan semua folder foto kucing dan kelinci kedalam zip dengan password tanggal mmddyyyy**
+```
+#!/bin/bash
+Tanggal=$(date +"%m%d%Y")
+TANGGAL=$(date +"%d-%m-%Y")
+echo $Tanggal
+
+zip -r -m -e -P "$Tanggal" Koleksi.zip ~/Kucing/ ~/Kelinci/ ~/$TANGGAL/
+```
+Penjelasan
+* $Tanggal untuk membuat password
+* $TANGGAL untuk mencari nama folder
+* dengan menggunakan `zip -r -m -e -P "$Tanggal" Koleksi.zip ~/Kucing/ ~/Kelinci/ ~/$TANGGAL/ `
+* `-r` berarti secara rekursi masuk kedalam folder sesuai tempatnya
+* `-m` untuk mendelete file setelah di zip
+* `-e` untuk memberi password pada zip 
+* `-P "$Tanggal"` untuk memberi input password sesuai format (jika hanya -e aja maka terminal akan meminta input password secara manual)
+* `Koleksi.zip` nama file zip
+* `~/Kucing/ ~/Kelinci/ ~/$TANGGAL/ ` direktory dan isi yang ingin di zip 
+
+**3e. soal meminta untuk secara pola menzip saat kuliah berlangsung dan unzip saat tidak kuliah**
+```
+0 7 * * 1-5 soal3d.sh
+0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
+```
+Pennjelasan
+* `0 7 * * 1-5 soal3d.sh` setiap jam 7 tanggal 1-5 (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
+* `0 18 * * 1-5 unzip`setiap jam 18 tanggal 1-5 (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
+* `-P $(date +"%m%d%Y")` membuka password secara otomatis sesuai tanggal zip dibuat
+* `-o ~/Koleksi.zip` zip yang ingin diunzip
+* `&&` agar perintah setelahnya tidak tereksekusi jika perintah sebelumnya gagal
+* `rm ~/Koleksi.zip` untuk mendelete zip nya
