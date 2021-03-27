@@ -267,11 +267,11 @@ Penjelasan
 
 ```
 # crontab 
-0 20 1/7 * * ~/soal3b.sh
-0 20 2/4 * * ~/soal3b.sh
+0 20 1/7 * * bash ~/soal3b.sh
+0 20 2/4 * * bash ~/soal3b.sh
 ```
-* `0 20 1/7 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap tujuh hari lewat mulai dari tanggal 1
-* `0 20 2/4 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap empat hari lewat mulai dari tanggal 2 
+* `0 20 1/7 * * bash ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap tujuh hari lewat mulai dari tanggal 1
+* `0 20 2/4 * * bash ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap empat hari lewat mulai dari tanggal 2 
 
 **3c. diminta untuk mengunduh gambar kelinci dan kucing secara zigzag (bebas mulai darimana) serta memisahkan folder gambar kelinci dan kucing**
 ```
@@ -323,11 +323,11 @@ Penjelasan
 
 **3e. soal meminta untuk secara pola menzip saat kuliah berlangsung dan unzip saat tidak kuliah**
 ```
-0 7 * * 1-5 soal3d.sh
+0 7 * * 1-5 bash soal3d.sh
 0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
 ```
 Pennjelasan
-* `0 7 * * 1-5 soal3d.sh` setiap jam 7 tanggal 1-5 (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
+* `0 7 * * 1-5 bash soal3d.sh` setiap jam 7 tanggal 1-5 (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
 * `0 18 * * 1-5 unzip`setiap jam 18 tanggal 1-5 (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
 * `-P $(date +"%m%d%Y")` membuka password secara otomatis sesuai tanggal zip dibuat
 * `-o ~/Koleksi.zip` zip yang ingin diunzip
