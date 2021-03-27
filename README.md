@@ -30,6 +30,21 @@ END {print mid,"dengan presentase",max"%."}
 ```
 **Penjelasan :** 
 
+`export LC_ALL=C` = 
+
+`-F '\t'` = Memberitahu field seperatornya adalah tab
+
+`BEGIN {max=0}` = Untuk mendeklarasikan variable max
+
+`$1 !~ /^R/` =
+
+`{1[$1]=$21/($18-$21)*100` = Mengambil isi pada kolom 1 yang berupa Row ID, kemudian akan dihitung Percentage Profit setiap ID nya
+
+`if(max <= i[$1]) {max = i[$1]; mid = $1}` = Mencari Percentage Profit paling besar, hasilnya disimpan di variabel max dan ID nya di variabel mid
+
+`END {print mid,"dengan presentase",max"%."}` = Output nya berupa ID dengan persentase terbesar dan Percentage Profitnya
+
+`Laporan-TokoShiSop.tsv` = Nama file yang menjadi input
 
 b. Clemong memiliki rencana promosi di Albuquerque menggunakan metode MLM. Oleh karena itu, Clemong membutuhkan **daftar nama customer pada transaksi tahun 2017 di Albuquerque**.
 
@@ -40,6 +55,18 @@ awk -F '\t' '$2 ~ /^CA-2017/ {if($10 == "Alburquerque") print $7}
 ```
 **Penjelasan :**
 
+`-F '\t'` = Memberitahu field seperatornya adalah tab
+
+`$2 ~ /^CA-2017/` =
+
+`{if($10 == "Alburquerque")`  = Mengambil isi pada kolom 10 berdasarkan city "Albuquerque"
+
+`print $7}` = Output nya berupa nama customer
+
+`Laporan-TokoShiSop.tsv` = Nama file yang menjadi input
+
+`sort -u` = Untuk sort dan remove data yang duplikat
+
 c. TokoShiSop berfokus tiga segment customer, antara lain: *Home Office, Customer, dan Corporate*. Clemong ingin meningkatkan penjualan pada segmen customer yang paling sedikit. Oleh karena itu, Clemong membutuhkan **segment customer** dan **jumlah transaksinya yang paling sedikit**.
 
 ``` 
@@ -48,9 +75,25 @@ awk -F '\t' '
 BEGIN {i["Costumer"]=0; i["Corporate"]=0; i["Home Office"]=0}
 $8 !~ /Segment/ {i[$8]++}
 END {for(x in i) print x,"dengan",i[x],"transaksi."}
-' Laporan-TokoShiSop.tsv | sort -nr | head -1
+' Laporan-TokoShiSop.tsv | sort -k3 -n | head -1
 ```
 **Penjelasan :**
+
+`-F '\t'` = Memberitahu field seperatornya adalah tab
+
+`BEGIN {i["Costumer"]=0; i["Corporate"]=0; i["Home Office"]=0}` = Untuk mendeklarasikan array i
+
+`$8 !~ /Segment/` = 
+
+`{i[$8]++}` = Menghitung banyak segmen
+
+`END {for(x in i) print x,"dengan",i[x],"transaksi."}` = Outputnya berupa nama segmen dan banyaknya
+
+`Laporan-TokoShiSop.tsv` = Nama file yang menjadi input
+
+`sort -k3 -n` = Sort pada kolom ke 3 yaitu banyak segmen dan diurutkan dari terkecil ke besar
+
+`head -1` = Mengambil 1 data teratas yang sudah diurutkan
 
 d. TokoShiSop membagi wilayah bagian (region) penjualan menjadi empat bagian, antara lain: *Central, East, South, dan West*. Manis ingin mencari **wilayah bagian (region) yang memiliki total keuntungan (profit) paling sedikit** dan **total keuntungan wilayah tersebut**.
 ```
@@ -61,6 +104,20 @@ END {(for x in i) print x,"dengan total keuntungan",i[x]}
 ' Laporan-TokoShiSop.tsv | sort -k5 -n | head -1
 ```
 **Penjelasan :**
+
+`-F '\t'` = memberitahu field seperatornya adalah tab
+
+`$13 !~ /Region/` = 
+
+`{i[$13]+=$21}` = Mengambil isi pada kolom 13 berupa Region, lalu dihitung jumlah profit per Regionnya
+
+`END {(for x in i) print x,"dengan total keuntungan",i[x]}` = Outputnya merupakan nama Region dan jumlah profitnya
+
+`Laporan-TokoShiSop.tsv` = Nama file yang menjadi input
+
+`sort -k5 -n` = Sort pada kolom ke 5 yaitu jumlah profit yang didapat dan diurutkan dari terkecil hingga besar
+
+`head -1` = Mengambil 1 data teratas yang sudah diurutkan
 
 ### Soal 3
 
