@@ -139,4 +139,80 @@ Hasil dari script soal2_generate_laporan_ihir_shisop.sh akan dituliskan di hasil
 Hasil dapat dilihat di [hasil](soal2/hasil.txt)
 
 ### Soal 3
+---
+> Source Code
+> **[soal3a.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/soal3a.sh)** ,
+> **[soal3b.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/soal3b.sh)** ,
+> **[soal3c.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/soal3c.sh)** ,
+> **[soal3d.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/soal3d.sh)** ,
+> **[cron3b.tab](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/cron3b.tab)** ,
+> **[crond3e.tab](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal3/cron3e.tab)**
+
+Pada soal ini dibagi menjadi 5 sub-tugas 
+
+3a. kita disuruh untuk mengunduh 23 gambar dari website yang diberi dan juga menyimpan file lognya. dalam pengunduhan kita juga diharuskan untuk tidak mendapatkan file duplikat dan juga dalam penamaan tidak boleh ada angka yang diskip.
+
+```
+#!/bin/bash
+
+## Bikin Array Buat Check
+check=( $(for x in {1..23};do echo "0";done) )
+
+## Bikin Total Permintaan diunduh berpakali
+limit=23
+
+## Masuk Looping
+for ((num=1;num<=limit; num=num+1))
+do
+j=num
+
+## Untuk Penamaan File 1 -> 01
+i=$(printf "%02d" $num) 
+
+## Mengunduh File
+wget -a Foto.log https://loremflickr.com/320/240/kitten -O "Koleksi_$i"
+
+## Buat Nama untuk String Compare
+check[$num]="$(md5sum Koleksi_$i | awk '{print $1;}')"
+
+## String Compare 
+for ((j=num-1;j>=1;j=j-1))
+	do
+	if [[ "${check[$num]}" == "${check[$j]}" ]];
+	then
+		rm Koleksi_$i
+		limit=$((limit-1))
+		num=$((num-1))
+	fi
+	done
+
+done
+```
+Penjelasan 
+* Untuk mendapatkan gambar 23 kali kita menggunakan wget (-a untuk log, -O untuk penamaan file) yang dilakukan dalam looping dari num (1) sampai limit (23).
+* dalam soal dilarang untuk mengunduh duplikat maka dari itu kita menggunakan md5sum untuk mengechek gambar-gambar
+* line berikut digunakan untuk mendapatkan string md5sum dari file gambar dan menyimpannya dalam array check agar bisa di compare pada line berikutnya
+
+```
+## Buat Nama untuk String Compare
+check[$num]="$(md5sum Koleksi_$i | awk '{print $1;}')"
+```
+```
+## String Compare 
+for ((j=num-1;j>=1;j=j-1))
+	do
+	if [[ "${check[$num]}" == "${check[$j]}" ]];
+	then
+		rm Koleksi_$i
+		limit=$((limit-1))
+		num=$((num-1))
+	fi
+	done
+
+```
+* dengan mengcompare string md5sum dari file $num ke $j (contohnya jika file ke 4 maka terminal akan mengcomparenya dengan 3,2,1) jika file yang dicompare memiliki string md5sum yang sama maka file koleksi bernomorkan $i akan di delete. 
+* karena kita tidak diminta untuk mencari pengganti file yang sudah dihapus. $num dan $limit di decrement dengan maksud agar penamaan file berikutnya berurutan dengan sebelumnya 
+dan yang kita download berkurang satu
+
+
 
