@@ -150,7 +150,8 @@ Hasil dapat dilihat di [hasil](soal2/hasil.txt)
 
 Pada soal ini dibagi menjadi 5 sub-tugas 
 
-3a. kita disuruh untuk mengunduh 23 gambar dari website yang diberi dan juga menyimpan file lognya. dalam pengunduhan kita juga diharuskan untuk tidak mendapatkan file duplikat dan juga dalam penamaan tidak boleh ada angka yang diskip.
+
+**3a. kita disuruh untuk mengunduh 23 gambar dari website yang diberi dan juga menyimpan file lognya. dalam pengunduhan kita juga diharuskan untuk tidak mendapatkan file duplikat dan juga dalam penamaan tidak boleh ada angka yang diskip.**
 
 ```
 #!/bin/bash
@@ -214,5 +215,60 @@ for ((j=num-1;j>=1;j=j-1))
 * karena kita tidak diminta untuk mencari pengganti file yang sudah dihapus. $num dan $limit di decrement dengan maksud agar penamaan file berikutnya berurutan dengan sebelumnya 
 dan yang kita download berkurang satu
 
+**3b. soal 3b meminta untuk membuat crontab serta gambar yang didownload diletakkan di folder tertentu. diminta dalam soal untuk menjalankan file pada jam 20.00 ditanggal tertentu yaitu pada setiap 7 hari mulai dari tanggal 1 dan setiap 4 hari mulai dari tanggal 2. untuk folder diminta dinamakan tanggal DD-MM-YY pada hari-h script dijalankan**
+```
+!/bin/bash
+
+## Bikin Folder tanggal
+TANGGAL=$(date +"%d-%m-%Y")
+mkdir -p $TANGGAL
+
+## Bikin Array Buat Check
+check=( $(for x in {1..23};do echo "0";done) )
+
+## Bikin Total Permintaan diunduh berpakali
+limit=23
+
+## Masuk Looping
+for ((num=1;num<=limit; num=num+1))
+do
+j=num
+## Untuk Penamaan File 1 -> 01
+i=$(printf "%02d" $num) 
+## Mengunduh File
+wget -a Foto.log https://loremflickr.com/320/240/kitten -O "Koleksi_$i"
+
+## Buat Nama untuk String Compare
+check[$num]="$(md5sum Koleksi_$i | awk '{print $1;}')"
 
 
+
+## String Compare 
+for ((j=num-1;j>=1;j=j-1))
+        do
+        if [[ "${check[$num]}" == "${check[$j]}" ]];
+        then
+                rm Koleksi_$i
+                limit=$((limit-1))
+                num=$((num-1))
+        fi
+        done
+
+**mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i**
+
+done
+
+**mv Foto.log /home/struk/$TANGGAL/Foto.log**
+```
+Penjelasan
+* Hampir sama dengan 3a hanya saja ditambah dengan cron tab dan pemindahan folder
+* di akhir setiap for loop diberi line `mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i` untuk memindahkan file Koleksi nomor $i ke dalam folder yang bernama $TANGGAL
+* setelah for loop selesai terdapat line `mv Foto.log /home/struk/$TANGGAL/Foto.log` untuk memindahkan log ke dalam folder $TANGGAL
+
+```
+# crontab 
+0 20 1/7 * * ~/soal3b.sh
+0 20 2/4 * * ~/soal3b.sh
+```
+* `0 20 1/7 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap tujuh hari lewat mulai dari tanggal 1
+* `0 20 2/4 * * ~/soal3b.sh` berarti menjalankan script soal3b setiap jam 20.00 setiap empat hari lewat mulai dari tanggal 2 
