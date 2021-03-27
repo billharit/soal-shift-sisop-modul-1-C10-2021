@@ -327,8 +327,8 @@ Penjelasan
 0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
 ```
 Pennjelasan
-* `0 7 * * 1-5 bash soal3d.sh` setiap jam 7 tanggal 1-5 (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
-* `0 18 * * 1-5 unzip`setiap jam 18 tanggal 1-5 (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
+* `0 7 * * 1-5 bash soal3d.sh` setiap jam 7 hari senin-jum'at (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
+* `0 18 * * 1-5 unzip`setiap jam 18 hari senin-jum'at (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
 * `-P $(date +"%m%d%Y")` membuka password secara otomatis sesuai tanggal zip dibuat
 * `-o ~/Koleksi.zip` zip yang ingin diunzip
 * `&&` agar perintah setelahnya tidak tereksekusi jika perintah sebelumnya gagal
