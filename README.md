@@ -119,5 +119,22 @@ END {(for x in i) print x,"dengan total keuntungan",i[x]}
 
 `head -1` = Mengambil 1 data teratas yang sudah diurutkan
 
+Agar mudah dibaca oleh Manis, Clemong, dan Steven, (e) kamu diharapkan bisa membuat sebuah script yang akan menghasilkan file “hasil.txt” yang memiliki format sebagai berikut:
+
+```
+Transaksi terakhir dengan profit percentage terbesar yaitu *ID Transaksi* dengan persentase *Profit Percentage*%.
+
+Daftar nama customer di Albuquerque pada tahun 2017 antara lain:
+*Nama Customer1*
+*Nama Customer2* dst
+
+Tipe segmen customer yang penjualannya paling sedikit adalah *Tipe Segment* dengan *Total Transaksi* transaksi.
+
+Wilayah bagian (region) yang memiliki total keuntungan (profit) yang paling sedikit adalah *Nama Region* dengan total keuntungan *Total Keuntungan (Profit)*
+```
+Hasil dari script soal2_generate_laporan_ihir_shisop.sh akan dituliskan di hasil.txt dengan
+
+`bash soal2_generate_laporan_ihir_shisop.sh > hasil.txt`
+
 ### Soal 3
 
