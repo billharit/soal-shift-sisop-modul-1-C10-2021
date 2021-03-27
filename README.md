@@ -120,7 +120,7 @@ END {(for x in i) print x,"dengan total keuntungan",i[x]}
 
 `{i[$13]+=$21}` = Mengambil isi pada kolom 13 berupa Region, lalu dihitung jumlah profit per Regionnya
 
-`END {(for x in i) print x,"dengan total keuntungan",i[x]}` = Outputnya merupakan nama Region dan jumlah profitnya
+`END {for(x in i) print x,"dengan total keuntungan",i[x]}` = Outputnya merupakan nama Region dan jumlah profitnya
 
 `Laporan-TokoShiSop.tsv` = Nama file yang menjadi input
 
