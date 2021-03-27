@@ -30,7 +30,7 @@ END {print mid,"dengan presentase",max"%."}
 ```
 **Penjelasan :** 
 
-`export LC_ALL=C` = 
+`export LC_ALL=C` = Mesin membaca titik (.) jadi koma (,)
 
 `-F '\t'` = Memberitahu field seperatornya adalah tab
 
