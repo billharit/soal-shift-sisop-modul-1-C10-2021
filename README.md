@@ -189,7 +189,7 @@ for ((j=num-1;j>=1;j=j-1))
 
 done
 ```
-Penjelasan 
+**Penjelasan** 
 * Untuk mendapatkan gambar 23 kali kita menggunakan wget (-a untuk log, -O untuk penamaan file) yang dilakukan dalam looping dari num (1) sampai limit (23).
 * dalam soal dilarang untuk mengunduh duplikat maka dari itu kita menggunakan md5sum untuk mengechek gambar-gambar
 * line berikut digunakan untuk mendapatkan string md5sum dari file gambar dan menyimpannya dalam array check agar bisa di compare pada line berikutnya
@@ -260,7 +260,7 @@ done
 
 mv Foto.log /home/struk/$TANGGAL/Foto.log
 ```
-Penjelasan
+**Penjelasan**
 * Hampir sama dengan 3a hanya saja ditambah dengan cron tab dan pemindahan folder
 * di akhir setiap for loop diberi line `mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i` untuk memindahkan file Koleksi nomor $i ke dalam folder yang bernama $TANGGAL
 * setelah for loop selesai terdapat line `mv Foto.log /home/struk/$TANGGAL/Foto.log` untuk memindahkan log ke dalam folder $TANGGAL
@@ -294,9 +294,9 @@ then
 	mv Kelinci-$hari ~/Kelinci
 fi
 ```
-Penjelasan
-`mkdir ~/Kucing` Membuat direktori Kucing
-`mkdir ~/Kelinci` Membuat direktori Kelinci
+**Penjelasan**
+* `mkdir ~/Kucing` Membuat direktori Kucing
+* `mkdir ~/Kelinci` Membuat direktori Kelinci
 * `hari=$(date +"%--j")` kita membuat angka hari untuk penanda foto didownnload kapan digunakan %--j yang berarti tanggal dari 1 sampai 365, menggunakan -- agar tidak terdapat angka seperti 001,020 (angka yang depannya nol dihilangkan agar bisa masuk ke dalam algoritma berikutnya)
 * untuk membuat script mendownload secara zigzag kita menggunakan ganjil genap yang mengcompare hari dari tahun yang sudah kita dapat sebelumnya
 * file dinamakan Objek-$hari untuk menandakan tanggal didownload dan agar tidak terjadi overwrite
@@ -326,7 +326,7 @@ Penjelasan
 0 7 * * 1-5 bash soal3d.sh
 0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
 ```
-Pennjelasan
+**Penjelasan**
 * `0 7 * * 1-5 bash soal3d.sh` setiap jam 7 hari senin-jum'at (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
 * `0 18 * * 1-5 unzip`setiap jam 18 hari senin-jum'at (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
 * `-P $(date +"%m%d%Y")` membuka password secara otomatis sesuai tanggal zip dibuat
