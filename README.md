@@ -2,15 +2,24 @@
 
 ### KELOMPOK : C10
 
-Anggota :
-1. Dicksen Alfersius Novian - 05111940000076
-2. Vyra Fania Adelina - 05111940000109
-3. Bill Harit Yafi - 05111940000114
+| **No** | **Nama** | **NRP** | 
+| ------------- | ------------- | --------- |
+| 1 | Dicksen Alfersius Novian  | 05111940000076 | 
+| 2 | Vyra Fania Adelina  | 05111940000109 |
+| 3 | Bill Harit Yafi  | 05111940000114 |
 
 ## Soal Shift Modul 1 Sisop
 ### Soal 1
+---
+> Source Code
+> **[soal1.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal1/soal1.sh)** 
 
 ### Soal 2
+---
+> Source Code
+> **[hasil.txt](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal2/hasil.txt)** ,
+> **[soal2_generate_laporan_ihir_shisop.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal2/soal2_generate_laporan_ihir_shisop.sh)** 
+
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
 
 Tiap tahunnya, TokoShiSop mengadakan Rapat Kerja yang membahas bagaimana hasil penjualan dan strategi kedepannya yang akan diterapkan. Kamu sudah sangat menyiapkan sangat matang untuk raker tahun ini. Tetapi tiba-tiba, Steven, Manis, dan Clemong meminta kamu untuk mencari beberapa kesimpulan dari data penjualan “Laporan-TokoShiSop.tsv”.
