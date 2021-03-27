@@ -136,5 +136,7 @@ Hasil dari script soal2_generate_laporan_ihir_shisop.sh akan dituliskan di hasil
 
 `bash soal2_generate_laporan_ihir_shisop.sh > hasil.txt`
 
+Hasil dapat dilihat di [hasil](soal2/hasil.txt)
+
 ### Soal 3
 
