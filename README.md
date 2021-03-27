@@ -109,7 +109,7 @@ d. TokoShiSop membagi wilayah bagian (region) penjualan menjadi empat bagian, an
 printf "Wilayah bagian (region) yang memiliki total keuntungan (profit) yang paling sedikit adalah "
 awk -F '\t' '
 $13 !~ /Region/ {i[$13]+=$21}
-END {(for x in i) print x,"dengan total keuntungan",i[x]}
+END {for(x in i) print x,"dengan total keuntungan",i[x]}
 ' Laporan-TokoShiSop.tsv | sort -k5 -n | head -1
 ```
 **Penjelasan :**
