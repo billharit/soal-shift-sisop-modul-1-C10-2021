@@ -254,11 +254,11 @@ for ((j=num-1;j>=1;j=j-1))
         fi
         done
 
-**mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i**
+mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i
 
 done
 
-**mv Foto.log /home/struk/$TANGGAL/Foto.log**
+mv Foto.log /home/struk/$TANGGAL/Foto.log
 ```
 Penjelasan
 * Hampir sama dengan 3a hanya saja ditambah dengan cron tab dan pemindahan folder
