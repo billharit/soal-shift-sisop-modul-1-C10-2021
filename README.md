@@ -59,14 +59,14 @@ b. Clemong memiliki rencana promosi di Albuquerque menggunakan metode MLM. Oleh 
 
 ``` 
 echo "Daftar nama customer di Albuquerque pada tahun 2017 antara lain : "
-awk -F '\t' '$2 ~ /^CA-2017/ {if($10 == "Alburquerque") print $7}
+awk -F '\t' '$2 ~ /2017/ {if($10 == "Alburquerque") print $7}
 ' Laporan-TokoShiSop.tsv | sort -u
 ```
 **Penjelasan :**
 
 `-F '\t'` = Memberitahu field seperatornya adalah tab
 
-`$2 ~ /^CA-2017/` = Mengambil isi pada kolom 2 yaitu Order ID, yang memiliki Order ID dengan awalan CA-2017
+`$2 ~ /2017/` = Mengambil isi pada kolom 2 yaitu Order ID, yang memiliki Order ID dengan awalan CA-2017
 
 `{if($10 == "Alburquerque")`  = Mengambil isi pada kolom 10 berdasarkan city "Albuquerque"
 
