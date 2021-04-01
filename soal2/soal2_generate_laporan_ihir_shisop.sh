@@ -18,7 +18,7 @@ END {print mid,"dengan presentase",max"%."}
 echo " "
 
 echo "Daftar nama customer di Albuquerque pada tahun 2017 antara lain :"
-awk -F '\t' '$2 ~ /^CA-2017/ {if($10 == "Albuquerque") print $7}
+awk -F '\t' '$2 ~ /2017/ {if($10 == "Albuquerque") print $7}
 ' Laporan-TokoShiSop.tsv | sort -u
 
 # SOAL 2C
