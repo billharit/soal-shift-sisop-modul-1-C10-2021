@@ -96,6 +96,9 @@ done`
 
 `printf "%s,%d,%d\n" "$user" "$info_tiap_user" "$error_tiap_user" >> "user_statistic.csv"` = mencetak username, jumlah info, dan jumlah error user ke-n kedalam file "user_statistic.csv"
 
+**Kendala Nomor 1:**
+Kendala nomor 1 adalah ketika ingin mencari syntax regular expression untuk mendapatkan hasil yang diinginkan. Untuk mengatas i kendala tersebut, dilakukan pencarian daring salah satunya via regexr.com.
+
 ### Soal 2
 ---
 > Source Code
