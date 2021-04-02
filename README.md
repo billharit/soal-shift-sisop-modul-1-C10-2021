@@ -14,6 +14,88 @@
 > Source Code
 > **[soal1.sh](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal1/soal1.sh)** 
 
+Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
+
+(a) Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Informasi yang diperlukan antara lain: 
+
+`Raw_Data='syslog.log'` = mendeklarasikan file syslog.log dengan nama variabel "Raw_Data"
+
+jenis log (ERROR/INFO) :
+
+`jenis_log=$(grep -oP "(INFO|ERROR)" "$Raw_Data")` = menggunakan regular expression untuk mengetahui kata "INFO" atau "ERROR" tiap line pada data mentah
+
+pesan log :
+
+`pesan_log=$(grep -oP "(?<=[INFO|ERROR] ).*(?<=\ )" "$Raw_Data")` = menggunakan positive lookbehind untuk mengambil token setelah "INFO" atau "ERROR", mengambil token selain line break.
+
+username  :
+
+`user_log=$(grep -oP "(?<=\().*(?=\))" "$Raw_Data")` = menggunakan positive lookbehind untuk mengambil token diantara tanda "(" dan ")".
+
+(b) Kemudian, Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+
+`error_message=$(grep -oP "(?<=ERROR ).*(?<=\ )" "$Raw_Data" | sort | uniq -c| sort -nr)` = code tersebut berfungsi untuk menyimpan semua pesan error beserta jumlah kemunculannya dan diurutkan secara descending. `"(?<=ERROR ).*(?<=\ )"` menggunakan positive lookbehind untuk mengambil pesan setelah kata "ERROR". ` sort | uniq -c| sort -nr` digunakan untuk mengurutkan pesan error unik secara numerik--banyaknya muncul--dari frekuensi muncul tertinggi ke terendah.
+
+(c) Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+
+`error_seluruh_user=$(grep -oP "(?<=ERROR ).*(?<=\))" "$Raw_Data")` = menyimpan pesan error seluruh user menggunakan positive lookbehind.
+
+`info_seluruh_user=$(grep -oP "(?<=INFO ).*(?<=\))" "$Raw_Data")` = menyimpan pesan info seluruh user menggunakan positive lookbehind.
+
+
+Setelah semua informasi yang diperlukan telah disiapkan, kini saatnya Ryujin menuliskan semua informasi tersebut ke dalam laporan dengan format file csv.
+
+(d) Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+Contoh:
+```bash
+Error,Count
+Permission denied,5
+File not found,3
+Failed to connect to DB,2
+```
+
+`echo "ERROR,COUNT" > "error_message.csv"
+grep -oP "(?<=ERROR ).*(?<=\ )" "$Raw_Data" | sort | uniq -c | sort -nr | while read count pesan_log;
+do
+        printf "%s,%d\n" "$pesan_log" "$count" >> "error_message.csv"
+done`
+
+**Penjelasan:**
+`echo "ERROR,COUNT" > "error_message.csv"` = memasukkan header "ERROR,COUNT" sekaligus membuat file "error_message.csv"
+
+`grep -oP "(?<=ERROR ).*(?<=\ )" "$Raw_Data" | sort | uniq -c | sort -nr | while read count pesan_log;
+do
+        printf "%s,%d\n" "$pesan_log" "$count" >> "error_message.csv"
+done` = mengambil pesan error dari data mentah, lalu diurutkan berdasarkan banyaknya muncul secara descending. Lalu lakukan looping dan memasukkan pesan serta banyaknya muncul pesan error kedalam "error_message.csv"
+
+(e) Semua informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+Contoh:
+```bash
+Username,INFO,ERROR
+kaori02,6,0
+kousei01,2,2
+ryujin.1203,1,3
+```
+`echo "Username,INFO,ERROR" > "user_statistic.csv"
+grep -oP "(?<=\().*(?=\))" "$Raw_Data" | sort | uniq | while read user;
+do
+    info_tiap_user=$(grep "$user" <<< "$info_seluruh_user" | wc -l);
+    error_tiap_user=$(grep "$user" <<< "$error_seluruh_user" | wc -l);
+    printf "%s,%d,%d\n" "$user" "$info_tiap_user" "$error_tiap_user" >> "user_statistic.csv"
+done`
+
+**Penjelasan:**
+
+`echo "Username,INFO,ERROR" > "user_statistic.csv"` = memasukkan header "Username,INFO,ERROR" sekaligus membuat file "user_statistic.csv"
+
+`grep -oP "(?<=\().*(?=\))" "$Raw_Data" | sort | uniq | while read user;` = mengambil nama user (unik) dari data mentah dan dilakukan looping selama masih ada user.
+
+`info_tiap_user=$(grep "$user" <<< "$info_seluruh_user" | wc -l);` = mengambil jumlah info yang dimiliki user ke-n.
+
+ `error_tiap_user=$(grep "$user" <<< "$error_seluruh_user" | wc -l);` = mengambil jumlah error yang dimiliki user ke-n.
+
+`printf "%s,%d,%d\n" "$user" "$info_tiap_user" "$error_tiap_user" >> "user_statistic.csv"` = mencetak username, jumlah info, dan jumlah error user ke-n kedalam file "user_statistic.csv"
+
 ### Soal 2
 ---
 > Source Code
