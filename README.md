@@ -247,6 +247,16 @@ Hasil dari script soal2_generate_laporan_ihir_shisop.sh akan dituliskan di hasil
 
 Hasil dapat dilihat di [hasil](soal2/hasil.txt)
 
+<details>
+  <summary>Gambar Hasil</summary>
+
+![hasil](https://github.com/billharit/soal-shift-sisop-modul-1-C10-2021/blob/main/soal2/hasil.png)
+</details>
+
+**Kendala :**
+Pada file Laporan-TokoShiSop.tsv untuk angka menggunakan titik (.) jadi butuh LC_ALL=C agar mesin bisa baca jadi koma (,)
+
+
 ### Soal 3
 ---
 > Source Code
