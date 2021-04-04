@@ -24,24 +24,35 @@ jenis log (ERROR/INFO) :
 
 `jenis_log=$(grep -oP "(INFO|ERROR)" "$Raw_Data")` = menggunakan regular expression untuk mengetahui kata "INFO" atau "ERROR" tiap line pada data mentah
 
+![gambar hasil Error/Info](https://drive.google.com/uc?export=view&id=1c-KGl3dm3uDOyuZ6LpkjR5bhZt9H_XBt)
+
 pesan log :
 
 `pesan_log=$(grep -oP "(?<=[INFO|ERROR] ).*(?<=\ )" "$Raw_Data")` = menggunakan positive lookbehind untuk mengambil token setelah "INFO" atau "ERROR", mengambil token selain line break.
+
+![gambar hasil pesan log](https://drive.google.com/uc?export=view&id=11LFNzst6NnyArR6ILLNxi8wiVrlV-tnh)
 
 username  :
 
 `user_log=$(grep -oP "(?<=\().*(?=\))" "$Raw_Data")` = menggunakan positive lookbehind untuk mengambil token diantara tanda "(" dan ")".
 
+![gambar hasil username](https://drive.google.com/uc?export=view&id=1ndH-14dsdUGr80CRzaC1bqcFxZB2-xNX)
+
 (b) Kemudian, Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
 
 `error_message=$(grep -oP "(?<=ERROR ).*(?<=\ )" "$Raw_Data" | sort | uniq -c| sort -nr)` = code tersebut berfungsi untuk menyimpan semua pesan error beserta jumlah kemunculannya dan diurutkan secara descending. `"(?<=ERROR ).*(?<=\ )"` menggunakan positive lookbehind untuk mengambil pesan setelah kata "ERROR". ` sort | uniq -c| sort -nr` digunakan untuk mengurutkan pesan error unik secara numerik--banyaknya muncul--dari frekuensi muncul tertinggi ke terendah.
+
+![gambar hasil pesan error dan frekuensi](https://drive.google.com/uc?export=view&id=1p7Pe3gMHLGOHx-GgsEDETWYmL9eR3eAx)
 
 (c) Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
 
 `error_seluruh_user=$(grep -oP "(?<=ERROR ).*(?<=\))" "$Raw_Data")` = menyimpan pesan error seluruh user menggunakan positive lookbehind.
 
+![gambar pesan error tiap user](https://drive.google.com/uc?export=view&id=1YLOa8qmOD249DfutTer63E8mPRL1OKsB)
+
 `info_seluruh_user=$(grep -oP "(?<=INFO ).*(?<=\))" "$Raw_Data")` = menyimpan pesan info seluruh user menggunakan positive lookbehind.
 
+![gambar pesan info tiap user](https://drive.google.com/uc?export=view&id=13vlnurhVu_q-8VzZDGHcY03X3NYQ7NE0)
 
 Setelah semua informasi yang diperlukan telah disiapkan, kini saatnya Ryujin menuliskan semua informasi tersebut ke dalam laporan dengan format file csv.
 
@@ -67,6 +78,8 @@ done`
 do
         printf "%s,%d\n" "$pesan_log" "$count" >> "error_message.csv"
 done` = mengambil pesan error dari data mentah, lalu diurutkan berdasarkan banyaknya muncul secara descending. Lalu lakukan looping dan memasukkan pesan serta banyaknya muncul pesan error kedalam "error_message.csv"
+
+![hasil 1d](https://drive.google.com/uc?export=view&id=1wWSpYt3ZCTUFUWBIzYd7VxEzs59jDl26)
 
 (e) Semua informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
 Contoh:
@@ -95,6 +108,8 @@ done`
  `error_tiap_user=$(grep "$user" <<< "$error_seluruh_user" | wc -l);` = mengambil jumlah error yang dimiliki user ke-n.
 
 `printf "%s,%d,%d\n" "$user" "$info_tiap_user" "$error_tiap_user" >> "user_statistic.csv"` = mencetak username, jumlah info, dan jumlah error user ke-n kedalam file "user_statistic.csv"
+
+![hasil 1e](https://drive.google.com/uc?export=view&id=1xnbF-N0rmLoQsMfo3I6OGfgwdA8pusj9)
 
 **Kendala Nomor 1:**
 Kendala nomor 1 adalah ketika ingin mencari syntax regular expression untuk mendapatkan hasil yang diinginkan. Untuk mengatas i kendala tersebut, dilakukan pencarian daring salah satunya via regexr.com.
