@@ -245,6 +245,7 @@ Hasil dapat dilihat di [hasil](soal2/hasil.txt)
 Pada soal ini dibagi menjadi 5 sub-tugas 
 
 
+
 **3a. kita disuruh untuk mengunduh 23 gambar dari website yang diberi dan juga menyimpan file lognya. dalam pengunduhan kita juga diharuskan untuk tidak mendapatkan file duplikat dan juga dalam penamaan tidak boleh ada angka yang diskip.**
 
 ```
@@ -283,6 +284,12 @@ for ((j=num-1;j>=1;j=j-1))
 
 done
 ```
+<details>
+  <summary>Gambar Soal3a</summary>
+
+![Screenshot from 2021-04-04 18-40-39](https://user-images.githubusercontent.com/77628684/113508245-13c21500-9579-11eb-9e8d-1dabddae7cdd.png)
+</details>
+
 **Penjelasan** 
 * Untuk mendapatkan gambar 23 kali kita menggunakan wget (-a untuk log, -O untuk penamaan file) yang dilakukan dalam looping dari num (1) sampai limit (23).
 * dalam soal dilarang untuk mengunduh duplikat maka dari itu kita menggunakan md5sum untuk mengechek gambar-gambar
@@ -354,6 +361,12 @@ done
 
 mv Foto.log /home/struk/$TANGGAL/Foto.log
 ```
+<details>
+  <summary>Gambar Soal3b</summary>
+	
+![Screenshot from 2021-04-04 18-59-47](https://user-images.githubusercontent.com/77628684/113508330-964ad480-9579-11eb-9c14-c0b72762acbf.png)
+</details>
+
 **Penjelasan**
 * Hampir sama dengan 3a hanya saja ditambah dengan cron tab dan pemindahan folder
 * di akhir setiap for loop diberi line `mv Koleksi_$i /home/struk/$TANGGAL/Koleksi_$i` untuk memindahkan file Koleksi nomor $i ke dalam folder yang bernama $TANGGAL
@@ -388,6 +401,14 @@ then
 	mv Kelinci-$hari ~/Kelinci
 fi
 ```
+<details>
+  <summary>Gambar Soal3c</summary>
+	
+![Screenshot from 2021-04-04 19-00-13](https://user-images.githubusercontent.com/77628684/113508338-a5ca1d80-9579-11eb-90a3-060763a0af19.png)
+
+![Screenshot from 2021-04-04 19-00-29](https://user-images.githubusercontent.com/77628684/113508340-acf12b80-9579-11eb-9aef-63ed19f03566.png)
+</details>
+
 **Penjelasan**
 * `mkdir ~/Kucing` Membuat direktori Kucing
 * `mkdir ~/Kelinci` Membuat direktori Kelinci
@@ -404,6 +425,12 @@ echo $Tanggal
 
 zip -r -m -e -P "$Tanggal" Koleksi.zip ~/Kucing/ ~/Kelinci/ ~/$TANGGAL/
 ```
+<details>
+  <summary>Gambar Soal3d</summary>
+	
+![Screenshot from 2021-04-04 19-00-39](https://user-images.githubusercontent.com/77628684/113508346-b5e1fd00-9579-11eb-8353-8c15ef9aad63.png)
+</details>
+
 Penjelasan
 * $Tanggal untuk membuat password
 * $TANGGAL untuk mencari nama folder
@@ -420,6 +447,16 @@ Penjelasan
 0 7 * * 1-5 bash soal3d.sh
 0 18 * * 1-5 unzip -P $(date +"%m%d%Y") -o ~/Koleksi.zip && rm ~/Koleksi.zip
 ```
+
+<details>
+  <summary>Gambar Soal3e</summary>
+	
+![Screenshot from 2021-04-04 19-01-12](https://user-images.githubusercontent.com/77628684/113508420-1a04c100-957a-11eb-8d43-9bca0b616302.png)
+
+![messageImage_1617537752316](https://user-images.githubusercontent.com/77628684/113508438-3acd1680-957a-11eb-9506-f310e25dd840.jpg)
+
+</details>
+
 **Penjelasan**
 * `0 7 * * 1-5 bash soal3d.sh` setiap jam 7 hari senin-jum'at (tepatnya saat masuk kuliah) dijalankan script soal3d.sh untuk menzip
 * `0 18 * * 1-5 unzip`setiap jam 18 hari senin-jum'at (tepatnya saat kuliah selesai) dijalankan perintah unzip dengan tambahan berikut
@@ -427,3 +464,7 @@ Penjelasan
 * `-o ~/Koleksi.zip` zip yang ingin diunzip
 * `&&` agar perintah setelahnya tidak tereksekusi jika perintah sebelumnya gagal
 * `rm ~/Koleksi.zip` untuk mendelete zip nya
+
+**Problem**
+* Linux bug program yang dijalankan dirun berhasil tetapi tidak muncul file
+* Bukti dari berhasil adalah jika menggunakan -j maka file bisa diekstrak ke direktori root sedangkan untuk masuk ke foldernya sendiri di terminal sudah terlihat terextract tapi folder tidak terbuat
